@@ -140,30 +140,22 @@ for(const {side,ids} of placements){
 }
 document.addEventListener('keydown',event=>{if(event.key==='Escape')closeMenu();});
 
-// Readdy-style effects are scoped to the three introduction steps.
+// Native presentation video: only visible previews play; no draw or account API.
 const howReducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const drawn=new Set();
 const gachaPreview=$('.gacha-preview');
-let drawBusy=false;
-function playHowDraw(){
-  if(drawBusy||drawn.size===characters.length)return;
-  const available=characters.filter(character=>!drawn.has(character.id));
-  const character=available[Math.floor(Math.random()*available.length)];
-  drawn.add(character.id);drawBusy=true;
-  const button=$('#draw-demo');button.disabled=true;button.textContent='뽑는 중…';
-  gachaPreview.classList.remove('how-drawing');
-  $('#draw-result').hidden=true;
-  $('#draw-character').src=portrait(character.id);$('#draw-character').alt=character.name;$('#draw-name').textContent=character.name;
-  // Restart the same CSS sequence on replay, including its delayed effects.
-  void gachaPreview.offsetWidth;
-  gachaPreview.classList.add('how-drawing');$('#draw-result').hidden=false;
-  setTimeout(()=>{
-    drawBusy=false;button.disabled=drawn.size===characters.length;
-    button.textContent=drawn.size===characters.length?'모든 메이트를 만났어요':'다시 뽑기';
-    $('#demo-status').textContent=`${character.name} 등장! 웹 체험용 뽑기 결과예요.`;
-  },howReducedMotion?0:2800);
+const gachaVideo=$('#gacha-preview-video');
+const gachaMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+let gachaVisible=false;
+function syncGachaPlayback(){
+  if(gachaVisible&&!document.hidden&&!gachaMotion.matches){
+    gachaVideo.play().catch(()=>{});
+  }else{
+    gachaVideo.pause();
+    if((!gachaVisible||gachaMotion.matches)&&gachaVideo.readyState>0)gachaVideo.currentTime=0;
+  }
 }
-$('#draw-demo').addEventListener('click',playHowDraw);
+gachaMotion.addEventListener('change',syncGachaPlayback);
+document.addEventListener('visibilitychange',syncGachaPlayback);
 
 const howAssignment=$('.assignment-preview');
 const howAbilityOrder=[0,8,3,2,4,6,5,9,7,1];
@@ -216,11 +208,11 @@ if('IntersectionObserver' in window){
     });
   },{threshold:[0,.15]});
   if(!howReducedMotion)howRevealGroups.forEach((elements,trigger)=>{elements.forEach(element=>element.classList.add('how-reveal-pending'));revealObserver.observe(trigger);});
-  const gachaObserver=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){playHowDraw();gachaObserver.disconnect();}},{threshold:.4});gachaObserver.observe(gachaPreview);
+  const gachaObserver=new IntersectionObserver(entries=>{gachaVisible=entries[0].isIntersecting&&entries[0].intersectionRatio>=.15;syncGachaPlayback();},{threshold:[0,.15]});gachaObserver.observe(gachaPreview.closest('.how-row'));
   const assignmentObserver=new IntersectionObserver(entries=>{howAssignmentVisible=entries[0].isIntersecting;if(howAssignmentVisible)startHowHighlight();else stopHowHighlight();},{threshold:.3});assignmentObserver.observe(howAssignment);
   const placementObserver=new IntersectionObserver(entries=>{if(entries.some(entry=>entry.isIntersecting)){$('.placement-preview').classList.add('how-preview-active');placementObserver.disconnect();}},{threshold:.4});placementObserver.observe($('.placement-preview'));
 }else{
-  howAssignmentVisible=true;startHowHighlight();$('.placement-preview').classList.add('how-preview-active');
+  gachaVisible=true;syncGachaPlayback();howAssignmentVisible=true;startHowHighlight();$('.placement-preview').classList.add('how-preview-active');
 }
 
 const dialog=$('#info-dialog');
