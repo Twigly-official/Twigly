@@ -23,11 +23,13 @@ python3 -m http.server 8937 --bind 127.0.0.1 --directory dist
 - `dist/policies.html`, `dist/styles.css`: 정책 검토용 초안
 - `dist/assets/`: 캐릭터, 실제 기능 화면, 로고와 로컬 글꼴
 - `tests/contact.test.cjs`: 문의 입력과 전송 상태 점검
+- `tests/gacha-preview.test.cjs`: 자동 재생·화면 이탈·동작 줄이기 상태 점검
 
 ## 문의 양식 점검
 
 ```sh
 node --test tests/contact.test.cjs
+node --test tests/gacha-preview.test.cjs
 node --check dist/contact.js
 ```
 
@@ -37,7 +39,9 @@ node --check dist/contact.js
 
 ## 에셋
 
-기능 화면과 캐릭터는 격리된 예시 데이터로 네이티브 뷰를 렌더링한 이미지입니다. 앱 계정이나 사용자 데이터를 촬영한 이미지가 아닙니다. `export-feature-previews.py`와 `export-landing-assets.py`는 별도로 보유한 앱 소스 경로를 입력받는 개발용 도구이며 홈페이지 실행에는 필요하지 않습니다.
+기능 화면과 캐릭터는 격리된 예시 데이터로 네이티브 뷰를 렌더링한 이미지입니다. 앱 계정이나 사용자 데이터를 촬영한 이미지가 아닙니다. `export-gacha-preview.py`는 실제 가챠 연출을 무음 동영상으로 내보냅니다. STEP 1은 버튼 없이 자동 재생하며 화면을 벗어나거나 탭이 숨겨지면 중지합니다. 동작 줄이기 설정에서는 정지 화면을 표시합니다.
+
+`export-feature-previews.py`, `export-landing-assets.py`, `export-gacha-preview.py`는 별도로 보유한 앱 소스 경로를 입력받는 개발용 도구이며 홈페이지 실행에는 필요하지 않습니다.
 
 Pretendard 글꼴의 라이선스는 `dist/assets/fonts/`에 포함합니다.
 
