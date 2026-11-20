@@ -19,7 +19,7 @@ python3 -m http.server 8937 --bind 127.0.0.1 --directory dist
 - `dist/index.html`, `dist/app.js`, `dist/landing.css`: 랜딩 페이지와 미리보기 효과
 - `dist/contact.js`, `dist/contact.css`: 필수 답변 이메일·문의 내용, 전송 상태와 성공 알림
 - `dist/footer.css`: 제공 안내·사업자 정보·정책 링크를 포함하는 공통 하단
-- `dist/releases/`, `dist/releases.js`: 운영체제별 업데이트와 공지사항. 현재 이력은 예시로 표시합니다.
+- `dist/releases/`, `dist/releases.js`: 운영체제별 업데이트와 공지사항. 등록된 내용이 없으면 빈 상태를 표시합니다.
 - `dist/policies.html`, `dist/styles.css`: 정책 검토용 초안
 - `dist/assets/`: 캐릭터, 실제 기능 화면, 로고와 로컬 글꼴
 - `tests/contact.test.cjs`: 문의 입력과 전송 상태 점검
