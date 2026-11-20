@@ -1,0 +1,24 @@
+dialog.contact-dialog{width:min(560px,calc(100% - 32px));max-width:560px;max-height:calc(100dvh - 32px);padding:0;border:1px solid var(--line);border-radius:16px;color:var(--ink);background:#fff;overflow:auto}
+.contact-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px 18px;border-bottom:1px solid var(--line)}
+.contact-header h2{margin:0;font-size:23px;line-height:1.4}
+.contact-close{display:grid;place-items:center;width:32px;height:32px;border:0;border-radius:7px;background:transparent;font-size:25px;line-height:1;color:var(--muted)}
+.contact-close:hover:not(:disabled){background:var(--canvas)}
+.contact-form{padding:22px 24px 24px}
+.contact-field{display:flex;flex-direction:column;gap:9px}
+.contact-field+.contact-field{margin-top:18px}
+.contact-field>span{font-size:13px;font-weight:600}
+.contact-field input{box-sizing:border-box;width:100%;border:1px solid #c9dfd1;border-radius:8px;background:#f9fcfa;padding:10px 12px;font:inherit;font-size:14px;line-height:1.8;color:var(--ink)}
+.contact-field textarea{box-sizing:border-box;width:100%;min-height:200px;max-height:50dvh;resize:vertical;border:1px solid #c9dfd1;border-radius:8px;background:#f9fcfa;padding:12px;font:inherit;font-size:14px;line-height:1.8;color:var(--ink)}
+.contact-field input::placeholder,.contact-field textarea::placeholder{color:#87948b}
+.contact-field input:focus,.contact-field textarea:focus{outline:2px solid #a9ceb7;outline-offset:1px}
+.contact-field input:read-only,.contact-field textarea:read-only{color:var(--muted)}
+.contact-status{margin:14px 0 0;font-size:12px;line-height:1.8;color:var(--green)}
+.contact-status:empty{display:none}
+.contact-actions{display:flex;justify-content:flex-end;margin-top:20px}
+.contact-actions .button{font-size:13px;padding:11px 24px}
+.contact-toast{position:fixed;z-index:60;left:50%;bottom:24px;transform:translateX(-50%);width:max-content;max-width:calc(100% - 32px);border-radius:999px;padding:11px 20px;background:var(--green);color:#fff;font-size:14px;line-height:1.6;text-align:center;box-shadow:0 5px 22px #1a29211f;pointer-events:none}
+.contact-toast:empty{padding:0;background:transparent;box-shadow:none}
+.contact-toast:not(:empty){animation:contact-toast-in .2s ease-out}
+@keyframes contact-toast-in{from{opacity:0;transform:translate(-50%,6px)}to{opacity:1;transform:translate(-50%,0)}}
+@media(prefers-reduced-motion:reduce){.contact-toast:not(:empty){animation:none}}
+@media(max-width:480px){.contact-header{padding:18px}.contact-form{padding:18px}.contact-header h2{font-size:21px}.contact-field textarea{min-height:180px}}

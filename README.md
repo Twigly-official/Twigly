@@ -1,37 +1,48 @@
 # Twigly 홈페이지
 
-실제 앱의 26종 캐릭터, 10가지 기능과 동작을 바탕으로 만든 반응형 정적 홈페이지입니다.
+[공개 홈페이지](https://twigly-official.github.io/)
+
+사무실 메이트를 소개하는 반응형 랜딩 페이지입니다. 실제 앱 UI를 기반으로 한 캐릭터·기능 미리보기, 사용 단계, 다운로드 안내, FAQ와 문의 양식을 제공합니다.
 
 ## 로컬 실행
 
-이 디렉터리에서 `python3 -m http.server 8923 --bind 127.0.0.1 --directory dist`를 실행하고 `http://127.0.0.1:8923`를 엽니다. 빌드 과정과 설치할 npm 의존성이 없습니다.
+빌드나 패키지 설치 없이 실행할 수 있습니다.
 
-- `dist/index.html`: 서비스 소개, 기능, 캐릭터 필터, 사용 방법, 활용 예, FAQ, 다운로드 안내
-- `dist/styles.css`: 데스크톱·모바일 레이아웃, 동작 최소화 설정 지원
-- `dist/app.js`: 웹 체험, 캐릭터 필터, 활용 탭, 다운로드·문의 안내
-- `dist/policies.html`: 이용약관·개인정보처리방침 검토용 초안, 환불 정책 준비 안내
-- `prepare-assets.swift`: 앱 캐릭터 이미지의 투명 여백을 정리하고 웹 크기로 내보내는 스크립트
+```sh
+python3 -m http.server 8937 --bind 127.0.0.1 --directory dist
+```
 
-## 공개 출시 전에 확정할 내용
+`http://127.0.0.1:8937/`에서 확인합니다.
 
-현재 실제 결제가 미연결이고 공증한 공개 배포 파일이 없으므로, 다운로드는 준비 안내로 동작합니다. 정책 페이지는 확정 정책으로 오인하지 않도록 초안임을 표시했습니다. 공식 정보가 확정되면 다음을 반영해야 합니다.
+## 파일
 
-1. `dist/app.js`의 다운로드 안내를 실제 배포 파일 링크로 연결하고 `index.html` 지원 환경·배포 상태를 갱신합니다.
-2. 운영자 정보, 고객지원 연락처, 최종 가격·무료 제공 범위를 기재합니다.
-3. 개인정보 보유 기간, 처리업체·국외 이전·권리 행사·담당자 정보를 확인하고 정책 시행일을 확정합니다.
-4. 결제사와 실제 환불 조건·절차를 확정하고 정책을 검토합니다.
-5. 정책 페이지의 초안 표시 및 `noindex` 설정은 정책 확정 후 변경합니다.
+- `dist/index.html`, `dist/app.js`, `dist/landing.css`: 랜딩 페이지와 미리보기 효과
+- `dist/contact.js`, `dist/contact.css`: 필수 답변 이메일·문의 내용, 전송 상태와 성공 알림
+- `dist/footer.css`: 제공 안내·사업자 정보·정책 링크를 포함하는 공통 하단
+- `dist/releases/`, `dist/releases.js`: 운영체제별 업데이트와 공지사항. 현재 이력은 예시로 표시합니다.
+- `dist/policies.html`, `dist/styles.css`: 정책 검토용 초안
+- `dist/assets/`: 캐릭터, 실제 기능 화면, 로고와 로컬 글꼴
+- `tests/contact.test.cjs`: 문의 입력과 전송 상태 점검
 
-웹 체험의 타이머·체크리스트·메모는 브라우저 메모리에서만 작동하고 앱 데이터에 접근하거나 내용을 전송하지 않습니다. 홈페이지에는 분석 코드나 광고 추적을 추가하지 않았습니다. 한글은 로컬에서 제공하는 Pretendard Variable 1.3.9를 사용합니다. 로고는 앱과 같은 SF Rounded Bold와 leaf.fill을 네이티브로 렌더링한 이미지입니다. 글꼴 사용 허가문은 dist/assets/fonts에 포함합니다.
+## 문의 양식 점검
 
-`.openai/hosting.json`은 연결된 Sites 프로젝트와 정적 배포 디렉터리를 보존합니다. 계정 설정, 키, 앱 실행 파일 또는 서버 소스는 배포 패키지에 포함하지 않습니다.
+```sh
+node --test tests/contact.test.cjs
+node --check dist/contact.js
+```
 
-## 앱과 동일한 브랜드 리소스
+유효한 이메일과 문의 내용을 모두 입력하면 보내기 버튼이 활성화됩니다. 전송에 성공하면 창이 닫히고 감사 알림이 잠시 표시됩니다. 실패 시 두 입력을 유지합니다. 테스트는 가짜 전송 응답을 사용하며 실제 이메일을 보내지 않습니다.
 
-- `Theme.swift`: 흰색, 기본 초록 `rgb(10% 46% 29%)` (8비트 반올림 `#1a754a`), 잉크 `#1a2921`, soft `#e8f5ed`, canvas `#f0f7f2`, line `#e3ede6`, muted `#6e7d75`를 사용합니다.
-- `twigly-logo.png`: `MainView.sidebar`의 `HStack(spacing:10)`, `leaf.fill` 24pt, `Text("Twigly")` 26pt bold rounded, tracking -0.7을 그대로 렌더링합니다.
-- `edge-left/right-*.png`: `CharacterArtwork.swift`와 `PeekEdgeCharacter.swift`의 크기·회전·손 기준 크롭·좌우 반전을 그대로 렌더링합니다.
-- `photo-*.png`: `CharacterCatalogView.swift`의 `CharacterPortraitPhoto`를 84×112pt로 직접 렌더링합니다. 기본 자세는 캐릭터 소개에만 사용합니다.
-- 프리텐다드는 [공식 배포 저장소](https://github.com/orioncactus/pretendard)의 v1.3.9 웹폰트입니다. 외부 글꼴 서버를 호출하지 않습니다.
+문의는 별도로 운영하는 서버로 전송합니다. 수신 주소·이메일 발송 키·서버 자격 증명은 이 공개 저장소에 넣지 않습니다. 클라이언트에는 공개 API 주소만 포함합니다. 서버는 배포할 홈페이지의 정확한 Origin을 허용해야 합니다.
 
-`export-brand-assets.py`를 Website에서 실행하면 현재 앱 코드를 읽어 이미지들을 재생성합니다. 이미지 내보내기는 캐릭터·기능 연결·사용자 저장 기록에 접근하지 않습니다.
+## 에셋
+
+기능 화면과 캐릭터는 격리된 예시 데이터로 네이티브 뷰를 렌더링한 이미지입니다. 앱 계정이나 사용자 데이터를 촬영한 이미지가 아닙니다. `export-feature-previews.py`와 `export-landing-assets.py`는 별도로 보유한 앱 소스 경로를 입력받는 개발용 도구이며 홈페이지 실행에는 필요하지 않습니다.
+
+Pretendard 글꼴의 라이선스는 `dist/assets/fonts/`에 포함합니다.
+
+## 배포와 공개 정보
+
+작업 브랜치에서 커밋하고 `main`을 대상으로 PR을 생성합니다. `main`에 반영하면 GitHub Actions가 `dist/`를 GitHub Pages로 배포합니다. 사용자 승인 없이 `main` push·병합·수동 배포를 실행하지 않습니다.
+
+현재 다운로드 파일과 사업자 정보는 준비 중이며 정책은 초안입니다. 공개 배포 전에 실제 배포 파일·지원 환경·사업자 정보·정책을 확정해야 합니다. 소스·문서·테스트에 비밀정보나 실제 이메일 주소를 넣지 않으며, 테스트 주소는 예제 도메인을 사용합니다.

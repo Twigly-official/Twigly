@@ -1,0 +1,13 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+node_modules/
+.cache/
+.openai/
+REVIEW.md
+artifacts/
+*.pem
+*.key
+*.p12
+AuthConfiguration.plist
