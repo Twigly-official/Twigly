@@ -1,0 +1,72 @@
+[
+  {
+    "height" : 1424,
+    "id" : 0,
+    "image" : "feature-00@4x.png",
+    "name" : "퇴근·점심시간",
+    "width" : 1256
+  },
+  {
+    "height" : 1272,
+    "id" : 1,
+    "image" : "feature-01@4x.png",
+    "name" : "집중 타이머",
+    "width" : 1256
+  },
+  {
+    "height" : 1720,
+    "id" : 2,
+    "image" : "feature-02@4x.png",
+    "name" : "일정",
+    "width" : 1256
+  },
+  {
+    "height" : 1748,
+    "id" : 3,
+    "image" : "feature-03@4x.png",
+    "name" : "휴일",
+    "width" : 1256
+  },
+  {
+    "height" : 1540,
+    "id" : 4,
+    "image" : "feature-04@4x.png",
+    "name" : "클립보드",
+    "width" : 1256
+  },
+  {
+    "height" : 1288,
+    "id" : 5,
+    "image" : "feature-05@4x.png",
+    "name" : "사이트 바로가기",
+    "width" : 1256
+  },
+  {
+    "height" : 1380,
+    "id" : 6,
+    "image" : "feature-06@4x.png",
+    "name" : "자주 쓰는 문구",
+    "width" : 1256
+  },
+  {
+    "height" : 1260,
+    "id" : 7,
+    "image" : "feature-07@4x.png",
+    "name" : "체크리스트",
+    "width" : 1256
+  },
+  {
+    "height" : 756,
+    "id" : 8,
+    "image" : "feature-08@4x.png",
+    "name" : "월급날",
+    "width" : 1256
+  },
+  {
+    "height" : 856,
+    "id" : 9,
+    "image" : "feature-09@4x.png",
+    "name" : "메모장",
+    "width" : 1256
+  }
+]
