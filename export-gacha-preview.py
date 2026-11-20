@@ -108,3 +108,6 @@ with tempfile.TemporaryDirectory(prefix="twigly-gacha-preview-") as scratch:
     executable = Path(scratch) / "Export"
     subprocess.run(["swiftc", "-sdk", str(sdk), "-target", platform.machine()+"-apple-macosx14.0", "-module-cache-path", str(Path(scratch) / "cache"), str(script), "-o", str(executable)], check=True, env=environment)
     subprocess.run([str(executable)], check=True, env=environment)
+    # AVFoundation may leave a temporary fast-start copy beside the final movie.
+    for temporary in (website / "dist/assets").glob("native-gacha-cinema.mp4.sb-*"):
+        temporary.unlink()
