@@ -23,6 +23,7 @@ python3 -m http.server 8937 --bind 127.0.0.1 --directory dist
 - `dist/releases/`, `dist/releases.js`: 운영체제별 업데이트와 공지사항. 등록된 내용이 없으면 빈 상태를 표시합니다.
 - `dist/policies.html`, `dist/styles.css`: 정책 검토용 초안
 - `dist/assets/`: 캐릭터, 실제 기능 화면, 로고와 로컬 글꼴
+  - `dist/assets/menu-icon/MenuIcon.png`: 지정한 메뉴 아이콘 원본. 브라우저 탭, 상단·하단 로고와 페이지 안의 서비스 아이콘에 동일하게 사용합니다.
 - `tests/contact.test.cjs`: 문의 입력과 전송 상태 점검
 - `tests/gacha-preview.test.cjs`: 자동 재생·화면 이탈·동작 줄이기 상태 점검
 
