@@ -192,5 +192,6 @@
 .hero .desktop-preview-trigger{width:100%;max-width:640px;min-width:0;justify-self:end}
 .hero .desktop-shell{width:100%;max-width:none;margin:0}
 .hero .desktop-canvas{height:460px}
+@media(min-width:1001px){.hero.section-wrap{width:min(1240px,calc(100% - 80px))}.hero .desktop-preview-trigger{max-width:680px}}
 @media(max-width:900px){.hero{grid-template-columns:1fr;gap:36px;padding-top:50px}.hero-copy{text-align:center}.hero h1{font-size:clamp(32px,5.2vw,44px)}.hero-actions{justify-content:center}.hero .desktop-preview-trigger{justify-self:center}}
 @media(max-width:480px){.hero{padding-top:40px;gap:30px}.hero .desktop-canvas{height:430px}}
