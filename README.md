@@ -45,7 +45,7 @@ node --check dist/contact.js
 
 `export-feature-previews.py`, `export-landing-assets.py`, `export-gacha-preview.py`는 별도로 보유한 앱 소스 경로를 입력받는 개발용 도구이며 홈페이지 실행에는 필요하지 않습니다.
 
-상단 미리보기의 가장자리 캐릭터는 `native-edge-sprite-<left|right>-XX.png` 스프라이트 시트(8프레임 가로 배열, 무손실 PNG)를 CSS `steps()`로 재생합니다. 캐릭터마다 시작 시각을 달리해 움직임 뒤 잠시 쉬며, 동작 줄이기 설정에서는 첫 프레임으로 정지합니다. `python3 export-edge-sprites.py <앱 MacOS 경로> <애니메이션 프레임 경로>`로 원본 8프레임에 정지 이미지와 같은 회전·크롭·축소를 적용해 다시 만들 수 있습니다.
+상단 미리보기의 가장자리 캐릭터는 `native-edge-sprite-<left|right>-XX.png` 스프라이트 시트(8프레임 가로 배열, 무손실 PNG)를 CSS `steps()`로 재생합니다. 페이지에 머무는 동안 쉬지 않고 반복하며 캐릭터마다 위상과 속도를 달리하고, 동작 줄이기 설정에서는 첫 프레임으로 정지합니다. `python3 export-edge-sprites.py <앱 MacOS 경로> <애니메이션 프레임 경로>`로 원본 8프레임에 정지 이미지와 같은 회전·크롭·축소를 적용해 다시 만들 수 있습니다.
 
 Pretendard 글꼴의 라이선스는 `dist/assets/fonts/`에 포함합니다.
 

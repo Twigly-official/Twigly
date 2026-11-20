@@ -137,9 +137,10 @@ for(const {side,items} of placements){
     const summaryId=`desktop-summary-${side}-${index}`;
     const row=document.createElement('div');row.className='widget-row';
     const animal=document.createElement('button');animal.className='pet-button';animal.type='button';animal.setAttribute('aria-label',`${names[character]} 요약 접기·펼치기`);animal.setAttribute('aria-expanded','true');animal.setAttribute('aria-controls',summaryId);animal.title='더블클릭해서 요약 박스를 접고 펼쳐요';const sprite=document.createElement('span');sprite.className='pet-sprite';sprite.setAttribute('role','img');sprite.setAttribute('aria-label',names[character]);
-    // 8-frame native peek animation; staggered so neighbours never move together.
-    const order=side==='left'?index*2:index*2+1;
-    sprite.style.cssText=`background-image:url("${edgeSprite(character,side)}");--sprite-cycle:${(6.4+order%4*0.55).toFixed(2)}s;--sprite-delay:${(0.4+order*1.37%6.2).toFixed(2)}s`;
+    // 8-frame native peek animation loops continuously; negative delays start
+    // every character mid-loop at load, each at its own phase and pace.
+    const order=side==='left'?index*2:index*2+1, cycle=8*(0.13+order%4*0.012);
+    sprite.style.cssText=`background-image:url("${edgeSprite(character,side)}");--sprite-cycle:${cycle.toFixed(3)}s;--sprite-delay:${(-cycle*((order*3)%10)/10).toFixed(3)}s`;
     animal.append(sprite);
     const summary=document.createElement('div');summary.className='quick-summary';summary.id=summaryId;summary.innerHTML=`<small>${a.label}</small><strong>${a.value}</strong>`;
     function toggleSummary(){const hidden=!summary.hidden;summary.hidden=hidden;animal.setAttribute('aria-expanded',String(!hidden));}
