@@ -127,8 +127,8 @@ featureTabs.querySelectorAll('[role="tab"]').forEach((tab,index)=>{
 
 // The desktop preview shows characters and summaries without opening tool panels.
 const placements=[
-  {side:'left',items:[0,4,7,9,2].map(ability=>({ability})).concat({ability:9,character:17})},
-  {side:'right',items:[1,8,3,6,5].map(ability=>({ability})).concat({ability:1,character:10})}
+  {side:'left',items:[0,4,7,9,2].map(ability=>({ability}))},
+  {side:'right',items:[1,8,3,6,5].map(ability=>({ability}))}
 ];
 for(const {side,items} of placements){
   for(const [index,{ability,character:overrideCharacter}] of items.entries()){
