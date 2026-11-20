@@ -63,10 +63,10 @@ const releaseContent=document.querySelector('.release-content');
 const releaseSupport=document.querySelector('.release-support');
 releaseScrollGroups.set(releaseHero,{items:()=>Array.from(releaseHero.children),visible:false});
 releaseScrollGroups.set(releaseContent,{items:()=>[document.querySelector('.release-tabs')],visible:false});
-releaseScrollGroups.set(releasePanels[0],{items:()=>Array.from(releasePanels[0].querySelectorAll('.release-notice')),unfold:true,visible:false});
+releaseScrollGroups.set(releasePanels[0],{items:()=>Array.from(releasePanels[0].querySelectorAll('.release-notice,.release-empty')),unfold:true,visible:false});
 releaseScrollGroups.set(releasePanels[1],{items:()=>{
   const timeline=platformPanels.find(panel=>!panel.hidden);
-  return [document.querySelector('.release-platform-tabs'),...timeline.querySelectorAll('.release-platform-heading,.release-version-heading,.release-version li')];
+  return [document.querySelector('.release-platform-tabs'),...timeline.querySelectorAll('.release-platform-heading,.release-version-heading,.release-version li,.release-empty')];
 },unfold:true,visible:false});
 releaseScrollGroups.set(releaseSupport,{items:()=>Array.from(releaseSupport.children),visible:false});
 if('IntersectionObserver' in window){

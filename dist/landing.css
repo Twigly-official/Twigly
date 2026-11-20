@@ -175,3 +175,6 @@
 /* Separate tab-switch motion from the outer scroll entrance. */
 .feature-preview-content{display:flow-root}
 .feature-preview.is-switching{overflow:clip}
+
+.release-empty{margin:0;padding:48px 20px;text-align:center;color:var(--muted);font-size:14px;line-height:1.8}
+.release-timeline .release-empty{padding:24px 0 36px}
