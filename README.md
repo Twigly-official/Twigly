@@ -17,6 +17,7 @@ python3 -m http.server 8937 --bind 127.0.0.1 --directory dist
 ## 파일
 
 - `dist/index.html`, `dist/app.js`, `dist/landing.css`: 랜딩 페이지와 미리보기 효과
+  - 상단은 넓은 화면에서 소개/데스크톱 미리보기를 나란히 배치하고, 작은 화면에서는 세로 배치합니다. 미리보기 아래쪽에는 실제 캐릭터 이미지 다섯 개를 추가로 표시합니다.
 - `dist/contact.js`, `dist/contact.css`: 필수 답변 이메일·문의 내용, 전송 상태와 성공 알림
 - `dist/footer.css`: 제공 안내·사업자 정보·정책 링크를 포함하는 공통 하단
 - `dist/releases/`, `dist/releases.js`: 운영체제별 업데이트와 공지사항. 등록된 내용이 없으면 빈 상태를 표시합니다.
