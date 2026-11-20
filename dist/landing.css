@@ -183,3 +183,15 @@
 #how .gacha-window>.desktop-toolbar{flex-shrink:0}
 #how .gacha-cinema-canvas{position:relative;width:100%;aspect-ratio:17/14;overflow:hidden}
 #how .gacha-cinema-video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;border-radius:0}
+
+/* Copy and a narrower desktop preview share the hero on wide screens. */
+.hero{display:grid;grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);align-items:center;gap:24px;padding-top:64px;padding-bottom:48px}
+.hero-copy{text-align:left;min-width:0}
+.hero h1{font-size:clamp(34px,3.35vw,44px);line-height:1.16}
+.hero-actions{justify-content:flex-start;flex-wrap:wrap}
+.hero .desktop-preview-trigger{width:100%;max-width:640px;min-width:0;justify-self:end}
+.hero .desktop-shell{width:100%;max-width:none;margin:0}
+.hero .desktop-canvas{height:460px}
+@media(min-width:1001px){.hero.section-wrap{width:min(1240px,calc(100% - 80px))}.hero .desktop-preview-trigger{max-width:680px}}
+@media(max-width:900px){.hero{grid-template-columns:1fr;gap:36px;padding-top:50px}.hero-copy{text-align:center}.hero h1{font-size:clamp(32px,5.2vw,44px)}.hero-actions{justify-content:center}.hero .desktop-preview-trigger{justify-self:center}}
+@media(max-width:480px){.hero{padding-top:40px;gap:30px}.hero .desktop-canvas{height:430px}}

@@ -126,12 +126,17 @@ featureTabs.querySelectorAll('[role="tab"]').forEach((tab,index)=>{
 });
 
 // The desktop preview shows characters and summaries without opening tool panels.
-const placements=[{side:'left',ids:[0,4,7,9,2]},{side:'right',ids:[1,8,3,6,5]}];
-for(const {side,ids} of placements){
-  for(const id of ids){
-    const a=abilities[id];const row=document.createElement('div');row.className='widget-row';
-    const animal=document.createElement('button');animal.className='pet-button';animal.type='button';animal.setAttribute('aria-label',`${names[a.character]} 요약 접기·펼치기`);animal.setAttribute('aria-expanded','true');animal.setAttribute('aria-controls',`desktop-summary-${id}`);animal.title='더블클릭해서 요약 박스를 접고 펼쳐요';animal.innerHTML=`<img src="${edgeArt(a.character,side)}" alt="${names[a.character]}" width="60" height="60">`;
-    const summary=document.createElement('div');summary.className='quick-summary';summary.id=`desktop-summary-${id}`;summary.innerHTML=`<small>${a.label}</small><strong>${a.value}</strong>`;
+const placements=[
+  {side:'left',items:[0,4,7,9,2].map(ability=>({ability}))},
+  {side:'right',items:[1,8,3,6,5].map(ability=>({ability}))}
+];
+for(const {side,items} of placements){
+  for(const [index,{ability,character:overrideCharacter}] of items.entries()){
+    const a=abilities[ability], character=overrideCharacter??a.character;
+    const summaryId=`desktop-summary-${side}-${index}`;
+    const row=document.createElement('div');row.className='widget-row';
+    const animal=document.createElement('button');animal.className='pet-button';animal.type='button';animal.setAttribute('aria-label',`${names[character]} 요약 접기·펼치기`);animal.setAttribute('aria-expanded','true');animal.setAttribute('aria-controls',summaryId);animal.title='더블클릭해서 요약 박스를 접고 펼쳐요';animal.innerHTML=`<img src="${edgeArt(character,side)}" alt="${names[character]}" width="60" height="60">`;
+    const summary=document.createElement('div');summary.className='quick-summary';summary.id=summaryId;summary.innerHTML=`<small>${a.label}</small><strong>${a.value}</strong>`;
     function toggleSummary(){const hidden=!summary.hidden;summary.hidden=hidden;animal.setAttribute('aria-expanded',String(!hidden));}
     animal.addEventListener('dblclick',toggleSummary);
     animal.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleSummary();}});
