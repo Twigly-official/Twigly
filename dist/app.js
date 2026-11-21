@@ -5,6 +5,7 @@ const $$ = selector => [...document.querySelectorAll(selector)];
 const pad = value => String(value).padStart(2, '0');
 const portrait = id => `assets/native-front-${pad(id)}.png`;
 const edgeArt = (id, side) => `assets/native-edge-${side}-${pad(id)}.png`;
+const edgeSprite = (id, side) => `assets/native-edge-sprite-${side}-${pad(id)}.png`;
 const icon = name => `<svg class="icon" aria-hidden="true"><use href="#i-${name}"/></svg>`;
 const names = ['치즈냥','네이비냥','말티즈','푸들','골든햄','회색햄','밤다람','눈다람','삼색기니','복실기니','백토끼','회색토끼','갈색쿼카','크림쿼카','초록개골','청개골','구름양','초코양','노랑삐약','검정삐약','갈색몽키','황금몽키','사막여우','북극여우','브라운곰','북극곰'];
 const species = ['고양이','강아지','햄스터','다람쥐','기니피그','토끼','쿼카','개구리','양','병아리','원숭이','여우','곰'];
@@ -135,7 +136,12 @@ for(const {side,items} of placements){
     const a=abilities[ability], character=overrideCharacter??a.character;
     const summaryId=`desktop-summary-${side}-${index}`;
     const row=document.createElement('div');row.className='widget-row';
-    const animal=document.createElement('button');animal.className='pet-button';animal.type='button';animal.setAttribute('aria-label',`${names[character]} 요약 접기·펼치기`);animal.setAttribute('aria-expanded','true');animal.setAttribute('aria-controls',summaryId);animal.title='더블클릭해서 요약 박스를 접고 펼쳐요';animal.innerHTML=`<img src="${edgeArt(character,side)}" alt="${names[character]}" width="60" height="60">`;
+    const animal=document.createElement('button');animal.className='pet-button';animal.type='button';animal.setAttribute('aria-label',`${names[character]} 요약 접기·펼치기`);animal.setAttribute('aria-expanded','true');animal.setAttribute('aria-controls',summaryId);animal.title='더블클릭해서 요약 박스를 접고 펼쳐요';const sprite=document.createElement('span');sprite.className='pet-sprite';sprite.setAttribute('role','img');sprite.setAttribute('aria-label',names[character]);
+    // 8-frame native peek animation loops continuously; negative delays start
+    // every character mid-loop at load, each at its own phase and pace.
+    const order=side==='left'?index*2:index*2+1, cycle=8*(0.13+order%4*0.012);
+    sprite.style.cssText=`background-image:url("${edgeSprite(character,side)}");--sprite-cycle:${cycle.toFixed(3)}s;--sprite-delay:${(-cycle*((order*3)%10)/10).toFixed(3)}s`;
+    animal.append(sprite);
     const summary=document.createElement('div');summary.className='quick-summary';summary.id=summaryId;summary.innerHTML=`<small>${a.label}</small><strong>${a.value}</strong>`;
     function toggleSummary(){const hidden=!summary.hidden;summary.hidden=hidden;animal.setAttribute('aria-expanded',String(!hidden));}
     animal.addEventListener('dblclick',toggleSummary);
