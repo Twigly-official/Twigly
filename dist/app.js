@@ -230,3 +230,36 @@ const dialog=$('#info-dialog');
 function showInfo(title,paragraphs){const content=$('#dialog-content');content.replaceChildren();const heading=document.createElement('h2');heading.id='dialog-title';heading.textContent=title;content.append(heading);paragraphs.forEach(text=>{const p=document.createElement('p');p.textContent=text;content.append(p);});dialog.showModal();}
 $$('[data-download]').forEach(button=>button.addEventListener('click',()=>showInfo(`${button.dataset.download==='mac'?'Mac':'Windows'} 배포를 준비하고 있어요`,['현재 공개 다운로드 파일은 준비 중이에요. 배포가 시작되면 이곳에서 설치 파일과 설치 방법을 안내할게요.','페이지 위의 데스크톱 미리보기에서 메이트의 배치를, 주요 기능 영역에서 실제 기능 화면을 살펴보세요.'])));
 $('.dialog-close').addEventListener('click',()=>dialog.close());$('.dialog-confirm').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',event=>{if(event.target===dialog){const rect=dialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)dialog.close();}});
+
+// FAQ: smooth open/close. Native <details>/<summary> stays the source of truth (keyboard, open attribute, no-JS fallback).
+const faqMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+const faqEase='cubic-bezier(.22,1,.36,1)',faqDuration=300;
+$$('.faq-list details').forEach(item=>{
+  const summary=item.querySelector('summary'),answer=item.querySelector('p');
+  if(!summary||!answer||typeof item.animate!=='function')return;
+  let heightAnim=null,fadeAnim=null,wantOpen=item.open;
+  const stop=()=>{if(heightAnim){heightAnim.onfinish=null;heightAnim.cancel();heightAnim=null;}if(fadeAnim){fadeAnim.cancel();fadeAnim=null;}};
+  const settle=()=>{stop();item.classList.remove('faq-closing');item.style.overflow='';};
+  summary.addEventListener('click',event=>{
+    if(faqMotion.matches){
+      // Reduced motion: let the native toggle run instantly; if an animation was running, jump straight to the opposite state.
+      if(heightAnim){event.preventDefault();wantOpen=!wantOpen;settle();item.open=wantOpen;}
+      return;
+    }
+    event.preventDefault();
+    const animating=heightAnim!==null;
+    const from=item.getBoundingClientRect().height;
+    const fromOpacity=animating?Number(getComputedStyle(answer).opacity):null;
+    wantOpen=animating?!wantOpen:!item.open;
+    stop();
+    item.style.overflow='hidden';
+    item.open=true;
+    const closed=summary.offsetHeight+(item.offsetHeight-item.clientHeight);
+    const to=wantOpen?item.offsetHeight:closed;
+    item.classList.toggle('faq-closing',!wantOpen);
+    heightAnim=item.animate({height:[from+'px',to+'px']},{duration:faqDuration,easing:faqEase});
+    const fade=wantOpen?{opacity:[fromOpacity===null?0:fromOpacity,1],transform:['translateY(-4px)','none']}:{opacity:[fromOpacity===null?1:fromOpacity,0]};
+    fadeAnim=answer.animate(fade,{duration:wantOpen?faqDuration:Math.round(faqDuration*.7),easing:faqEase,fill:'both'});
+    heightAnim.onfinish=()=>{settle();item.open=wantOpen;};
+  });
+});
