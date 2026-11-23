@@ -1,6 +1,6 @@
 # Twigly 홈페이지
 
-[공개 홈페이지](https://twigly-official.github.io/)
+[공개 홈페이지](https://twigly-official.github.io/Twigly)
 
 사무실 메이트를 소개하는 반응형 랜딩 페이지입니다. 실제 앱 UI를 기반으로 한 캐릭터·기능 미리보기, 사용 단계, 다운로드 안내, FAQ와 문의 양식을 제공합니다.
 
