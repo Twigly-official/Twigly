@@ -61,7 +61,7 @@ function updateFeatureTabs(id,moveFocus=false){
 function loadFeatureImage(id){
   if(featureImageCache.has(id))return featureImageCache.get(id);
   const image=new Image();
-  const source=`assets/feature-previews/feature-${pad(id)}@4x.png`;
+  const source=`assets/feature-previews/feature-${pad(id)}@4x.png?v=features-20261125`;
   const ready=typeof image.decode==='function'?(image.src=source,image.decode().then(()=>image)):new Promise((resolve,reject)=>{image.onload=()=>resolve(image);image.onerror=reject;image.src=source;});
   const result=ready.catch(error=>{featureImageCache.delete(id);throw error;});
   featureImageCache.set(id,result);return result;
