@@ -32,7 +32,7 @@ navigation.querySelectorAll('a').forEach(link=>link.addEventListener('click',clo
 function createFriendCard(character){
   const article=document.createElement('article');
   article.className='friend-card';
-  article.innerHTML=`<img src="assets/native-photo-${pad(character.id)}.png" alt="${character.name} — 보유 위젯과 같은 초록색 그라데이션 배경" width="336" height="448" decoding="async"><h3>${character.name}</h3><p>${character.species}</p>`;
+  article.innerHTML=`<img src="assets/native-photo-${pad(character.id)}.png?v=brand-colors-20261125" alt="${character.name} — 보유 위젯과 같은 초록색 그라데이션 배경" width="336" height="448" decoding="async"><h3>${character.name}</h3><p>${character.species}</p>`;
   return article;
 }
 const friendsCarousel=$('#friends-carousel');

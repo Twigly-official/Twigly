@@ -43,7 +43,7 @@ node --check dist/contact.js
 
 기능 화면과 캐릭터는 격리된 예시 데이터로 네이티브 뷰를 렌더링한 이미지입니다. 앱 계정이나 사용자 데이터를 촬영한 이미지가 아닙니다. `export-gacha-preview.py`는 실제 가챠 연출을 무음 동영상으로 내보냅니다. STEP 1은 버튼 없이 자동 재생하며 화면을 벗어나거나 탭이 숨겨지면 중지합니다. 동작 줄이기 설정에서는 정지 화면을 표시합니다.
 
-`export-feature-previews.py`, `export-landing-assets.py`, `export-gacha-preview.py`는 별도로 보유한 앱 소스 경로를 입력받는 개발용 도구이며 홈페이지 실행에는 필요하지 않습니다.
+`export-feature-previews.py`, `export-landing-assets.py`, `export-gacha-preview.py`, `export-character-photos.py`는 별도로 보유한 앱 소스 경로를 입력받는 개발용 도구이며 홈페이지 실행에는 필요하지 않습니다. `export-character-photos.py`는 네이티브 카탈로그의 현재 그라데이션으로 캐릭터 소개 사진 26장만 다시 렌더링합니다.
 
 상단 미리보기의 가장자리 캐릭터는 `native-edge-sprite-<left|right>-XX.png` 스프라이트 시트(8프레임 가로 배열, 무손실 PNG)를 CSS `steps()`로 재생합니다. 페이지에 머무는 동안 쉬지 않고 반복하며 캐릭터마다 위상과 속도를 달리하고, 동작 줄이기 설정에서는 첫 프레임으로 정지합니다. `python3 export-edge-sprites.py <앱 MacOS 경로> <애니메이션 프레임 경로>`로 원본 8프레임에 정지 이미지와 같은 회전·크롭·축소를 적용해 다시 만들 수 있습니다.
 
