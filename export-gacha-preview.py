@@ -15,6 +15,9 @@ website = Path(__file__).resolve().parent
 source = Path(sys.argv[1]).resolve() / "Sources/DeskForest"
 scene = (source / "GachaCinemaScene.swift").read_text()
 models = (source / "Models.swift").read_text()
+presentation = (source / "GachaCinemaPresentation.swift").read_text()
+# Only the cosmetic enum is needed; never include the draw state machine.
+palette = presentation[presentation.index("enum GachaCapsulePalette:"):presentation.index("/// A finite display")]
 characters = models[models.index("struct Character:"):models.index("enum Ability:")]
 # The timeline-backed idle preview is unused by the deterministic frame export.
 start = scene.index("/// Same approved machine,")
@@ -45,7 +48,7 @@ struct OwnedCharacter { let id:Int; var character:Character {Character.all[id]} 
 export = '''
 let outputRoot=URL(fileURLWithPath:OUTPUT_ROOT)
 @MainActor func frame(_ time:Double)->CGImage {
- let view=GachaCinemaStage(time:time,pet:OwnedCharacter(id:4),reduced:false,
+ let view=GachaCinemaStage(time:time,pet:OwnedCharacter(id:4),capsulePalette:.orange,reduced:false,
   playing:true,finished:false,connect:{},cancel:{},viewport:CGSize(width:680,height:560))
   .frame(width:680,height:560).environment(\\.colorScheme,.light)
  let renderer=ImageRenderer(content:view);renderer.scale=2
@@ -99,7 +102,7 @@ try MainActor.assumeIsolated {try run()}
 '''.replace("OUTPUT_ROOT", json.dumps(str(website / "dist/assets")))
 with tempfile.TemporaryDirectory(prefix="twigly-gacha-preview-") as scratch:
     script = Path(scratch) / "Export.swift"
-    script.write_text(prefix + characters + scene + export)
+    script.write_text(prefix + characters + palette + scene + export)
     # Use a compiled executable instead of Swift's JIT for AVFoundation rendering.
     sdk = Path("/Library/Developer/CommandLineTools/SDKs/MacOSX26.5.sdk")
     if not sdk.exists():
