@@ -24,11 +24,12 @@ struct FeatureSnapshotExporter {
     @MainActor static func main() throws {
         _ = NSApplication.shared
         NSApp.setActivationPolicy(.prohibited)
-        let now=ISO8601DateFormatter().date(from:"2026-11-20T10:30:00+09:00")!
+        let now=ISO8601DateFormatter().date(from:"2026-11-25T10:30:00+09:00")!
         var manifest:[[String:Any]]=[]
         for ability in Ability.allCases {
             try autoreleasepool {
                 let store=AppStore.isolatedPreview(for:ability,now:now)
+                store.clock={now}
                 let petID=WidgetPreviewData.characterID(for:ability)
                 let view=ToolView(petID:petID,ability:ability)
                     .environmentObject(store).environment(\.siteIconLoading,false)
@@ -48,16 +49,11 @@ struct FeatureSnapshotExporter {
                 window.contentView=host
                 host.layoutSubtreeIfNeeded()
                 RunLoop.current.run(until:Date().addingTimeInterval(0.25))
+                window.displayIfNeeded()
                 host.layoutSubtreeIfNeeded()
                 let scale:CGFloat=4
-                func prepare(_ layer:CALayer) {
-                    layer.contentsScale=scale
-                    layer.rasterizationScale=scale
-                    layer.setNeedsDisplay()
-                    layer.sublayers?.forEach(prepare)
-                }
-                host.wantsLayer=true
-                if let layer=host.layer {prepare(layer)}
+                // Preserve AppKit's native layer scales. Forcing every sublayer to
+                // 4× drops symbol-only buttons and native picker chevrons.
                 host.needsDisplay=true
                 host.displayIfNeeded()
                 guard let bitmap=NSBitmapImageRep(bitmapDataPlanes:nil,pixelsWide:Int(314*scale),pixelsHigh:Int(height*scale),bitsPerSample:8,samplesPerPixel:4,hasAlpha:true,isPlanar:false,colorSpaceName:.deviceRGB,bytesPerRow:0,bitsPerPixel:0) else {fatalError("No bitmap")}
@@ -90,7 +86,7 @@ with tempfile.TemporaryDirectory(prefix='twigly-feature-render-') as scratch:
     (target/'FeatureSnapshotExporter.swift').write_text(exporter)
     (scratch/'Package.swift').write_text('''// swift-tools-version: 5.9
 import PackageDescription
-let package=Package(name:"DeskForest",platforms:[.macOS(.v13)],products:[.executable(name:"FeatureSnapshot",targets:["DeskForest"])],targets:[.executableTarget(name:"DeskForest",resources:[.process("Resources")])])
+let package=Package(name:"DeskForest",platforms:[.macOS("26.0")],products:[.executable(name:"FeatureSnapshot",targets:["DeskForest"])],targets:[.executableTarget(name:"DeskForest",resources:[.process("Resources")])])
 ''')
     environment=dict(os.environ, DEVELOPER_DIR='/Applications/Xcode.app/Contents/Developer', SDKROOT='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk', CLANG_MODULE_CACHE_PATH=str(scratch/'clang-cache'))
     subprocess.run(['swift','build','--package-path',str(scratch),'--configuration','debug','--jobs','2','--product','FeatureSnapshot','--disable-sandbox','--cache-path',str(scratch/'cache'),'--config-path',str(scratch/'config'),'--security-path',str(scratch/'security')],check=True,env=environment)

@@ -1,34 +1,34 @@
 [
   {
-    "height" : 1424,
+    "height" : 1544,
     "id" : 0,
     "image" : "feature-00@4x.png",
     "name" : "퇴근·점심시간",
     "width" : 1256
   },
   {
-    "height" : 1272,
+    "height" : 1308,
     "id" : 1,
     "image" : "feature-01@4x.png",
     "name" : "집중 타이머",
     "width" : 1256
   },
   {
-    "height" : 1720,
+    "height" : 1788,
     "id" : 2,
     "image" : "feature-02@4x.png",
     "name" : "일정",
     "width" : 1256
   },
   {
-    "height" : 1748,
+    "height" : 1716,
     "id" : 3,
     "image" : "feature-03@4x.png",
     "name" : "휴일",
     "width" : 1256
   },
   {
-    "height" : 1540,
+    "height" : 1548,
     "id" : 4,
     "image" : "feature-04@4x.png",
     "name" : "클립보드",
@@ -42,7 +42,7 @@
     "width" : 1256
   },
   {
-    "height" : 1380,
+    "height" : 1720,
     "id" : 6,
     "image" : "feature-06@4x.png",
     "name" : "자주 쓰는 문구",
@@ -56,7 +56,7 @@
     "width" : 1256
   },
   {
-    "height" : 756,
+    "height" : 772,
     "id" : 8,
     "image" : "feature-08@4x.png",
     "name" : "월급날",
