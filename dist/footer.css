@@ -1,4 +1,4 @@
-.site-footer{border-top:1px solid var(--line);background:#f4faf6;color:var(--ink)}
+.site-footer{border-top:1px solid var(--line);background:var(--canvas,#f7f7f7);color:var(--ink)}
 .footer-service-terms{display:grid;gap:18px;margin:0;padding:34px 0;border-bottom:1px solid var(--line)}
 .footer-service-terms>div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:24px}
 .footer-service-terms dt{font-size:14px;font-weight:650;line-height:1.8}
