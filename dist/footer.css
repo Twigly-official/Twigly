@@ -3,7 +3,7 @@
 .footer-service-terms>div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:24px}
 .footer-service-terms dt{font-size:14px;font-weight:650;line-height:1.8}
 .footer-service-terms dd{margin:0;color:var(--muted);font-size:14px;line-height:1.8}
-.footer-service-terms a,.footer-business-content a{color:var(--green);text-decoration:underline;text-underline-offset:3px}
+.footer-service-terms a,.footer-business-content a{color:var(--green-accessible);text-decoration:underline;text-underline-offset:3px}
 .footer-service-terms a{display:inline-block;margin-left:6px;font-weight:600}
 .footer-business{border-bottom:1px solid var(--line)}
 .footer-business>summary{display:flex;align-items:center;gap:12px;width:fit-content;padding:20px 2px;list-style:none;cursor:pointer;color:var(--muted);font-size:14px;font-weight:600}
@@ -18,7 +18,7 @@
 .footer-brand img{display:block;width:120px;height:auto}
 .footer-policy-links{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px}
 .footer-policy-links a{font-size:13px;line-height:1.7;color:var(--muted)}
-.footer-policy-links a:hover{color:var(--green)}
+.footer-policy-links a:hover{color:var(--green-accessible)}
 .footer-policy-links small{font-size:10px;margin-left:4px;color:var(--muted)}
 .footer-meta{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-bottom:28px;color:var(--muted);font-size:11px}
 .footer-language{font-size:13px;font-weight:600;color:var(--ink)}
