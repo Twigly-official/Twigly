@@ -18,6 +18,7 @@ python3 -m http.server 8937 --bind 127.0.0.1 --directory dist
 
 - `dist/index.html`, `dist/app.js`, `dist/landing.css`: 랜딩 페이지와 미리보기 효과
   - 상단은 넓은 화면에서 소개/데스크톱 미리보기를 나란히 배치하고, 작은 화면에서는 세로 배치합니다. 미리보기에는 좌우 가장자리에서 빼꼼 나오는 캐릭터와 요약 박스를 다섯 개씩 표시합니다.
+- `dist/downloads.js`: 공개 GitHub 최신 정식 Release의 Windows x64 설치 EXE와 버전·릴리즈 정보 링크를 불러옵니다. 네트워크 오류나 설치 파일이 없는 경우 GitHub 릴리즈 확인 링크를 제공합니다. 버전을 수동으로 고정하지 않습니다.
 - `dist/contact.js`, `dist/contact.css`: 필수 답변 이메일·문의 내용, 전송 상태와 성공 알림
 - `dist/footer.css`: 제공 안내·사업자 정보·정책 링크를 포함하는 공통 하단
 - `dist/releases/`, `dist/releases.js`: 운영체제별 업데이트와 공지사항. 등록된 내용이 없으면 빈 상태를 표시합니다.
@@ -31,6 +32,7 @@ python3 -m http.server 8937 --bind 127.0.0.1 --directory dist
 ## 문의 양식 점검
 
 ```sh
+node --test tests/downloads.test.cjs
 node --test tests/contact.test.cjs
 node --test tests/gacha-preview.test.cjs
 node --check dist/contact.js
@@ -54,4 +56,4 @@ Pretendard 글꼴의 라이선스는 `dist/assets/fonts/`에 포함합니다.
 
 작업 브랜치에서 커밋하고 `main`을 대상으로 PR을 생성합니다. `main`에 반영하면 GitHub Actions가 `dist/`를 GitHub Pages로 배포합니다. 사용자 승인 없이 `main` push·병합·수동 배포를 실행하지 않습니다.
 
-현재 다운로드 파일과 사업자 정보는 준비 중이며 정책은 초안입니다. 공개 배포 전에 실제 배포 파일·지원 환경·사업자 정보·정책을 확정해야 합니다. 소스·문서·테스트에 비밀정보나 실제 이메일 주소를 넣지 않으며, 테스트 주소는 예제 도메인을 사용합니다.
+Windows 다운로드는 공개 GitHub Release의 설치 파일에 연결합니다. macOS 배포와 사업자 정보는 준비 중이며 정책은 초안입니다. 공개 배포 전에 실제 배포 파일·지원 환경·사업자 정보·정책을 확정해야 합니다. 소스·문서·테스트에 비밀정보나 실제 이메일 주소를 넣지 않으며, 테스트 주소는 예제 도메인을 사용합니다.

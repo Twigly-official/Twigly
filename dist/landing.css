@@ -176,6 +176,12 @@
 .feature-preview-content{display:flow-root}
 .feature-preview.is-switching{overflow:clip}
 
+.download-version-row{display:flex;align-items:baseline;gap:12px 20px;flex-wrap:wrap;margin-top:20px}
+.download-version-row h3{margin:0;font-size:24px}
+.download-release-link{font-size:14px;font-weight:650;color:var(--green-accessible);text-decoration:underline;text-underline-offset:4px}
+.download-release-link:hover{color:var(--ink)}
+.download-card .download-status{font-size:14px;line-height:1.6;margin-top:12px;color:var(--muted)}
+.download-release-link:focus-visible{outline:2px solid var(--green-accessible);outline-offset:4px;border-radius:2px}
 .release-empty{margin:0;padding:48px 20px;text-align:center;color:var(--muted);font-size:14px;line-height:1.8}
 .release-timeline .release-empty{padding:24px 0 36px}
 
