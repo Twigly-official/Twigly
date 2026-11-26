@@ -27,6 +27,8 @@ test('a newer release updates the version, direct installer and matching notes',
  assert.equal(view.elements['#windows-download'].href,installer.browser_download_url);
  assert.equal(view.elements['#windows-release'].href,`${root}/releases/tag/v2.0.0`);
  assert.equal(view.elements['#windows-download-label'].textContent,'Windows 다운로드 (x64)');
+ assert.equal(view.elements['#windows-download-status'].textContent,'');
+ assert.equal(view.elements['#windows-download-status'].hidden,true);
 });
 test('missing installers retain usable release links without claiming a download',async()=>{
  const view=ui();await init(view.document,async()=>Response.json(release([asset('licenses.zip')])));

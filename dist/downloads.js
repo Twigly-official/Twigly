@@ -43,7 +43,8 @@
       }
       button.href = installer.browser_download_url;
       label.textContent = 'Windows 다운로드 (x64)';
-      status.textContent = '최신 정식 버전 · 설치 파일을 바로 다운로드해요.';
+      status.textContent = '';
+      status.hidden = true;
     } catch (_) {
       button.href = latest;
       label.textContent = 'Windows 릴리즈 확인';
